@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Support\Facades\Http;
 use Jeybin\Networkintl\App\Models\NgeniusGateway;
 use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Support\Facades\Log;
 
 class NgeniusClient {
 
@@ -78,7 +79,7 @@ class NgeniusClient {
          * the constructor method itself and keeping it in 
          * the private variable. The bearer token will expire in 5 minutes
          */
-        $this->BEARER_TOKEN = self::ACCESS_TOKEN($gatewayConfig->api_key);
+        $this->BEARER_TOKEN = $this->ACCESS_TOKEN($gatewayConfig->api_key);
 
     }
 
@@ -100,11 +101,12 @@ class NgeniusClient {
      * always giving Bad request error
      */
     private function ACCESS_TOKEN($API_KEY){
+
         try {
             /**
              * Access token generation api
              */
-            self::setApi('identity/auth/access-token');
+            $this->setApi('identity/auth/access-token');
             /**
              * Api headers for the curl request
              */
@@ -117,14 +119,14 @@ class NgeniusClient {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers); 
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);   
             curl_setopt($ch, CURLOPT_POST, 1); 
-            $output = json_decode(curl_exec($ch)); 
+            $output = json_decode(curl_exec($ch));
             if(!empty($output) && !empty($output->access_token)){
                 return $output->access_token;
             }else{
                 throwNgeniusPackageResponse($output);
             }
         } catch (Exception $exception) {
-            throwNgeniusPackageResponse($exception);
+            return $exception->getMessage();
         }
     }
 
@@ -147,7 +149,7 @@ class NgeniusClient {
         }
 
         if($type == 'post'){
-            $response =  $this->POST_REQUEST($request,$allheaders);
+            $response =  $this->POST_REQUEST($allheaders, $request);
         }
 
         if($type == 'get'){
@@ -155,7 +157,7 @@ class NgeniusClient {
         }
 
         if($type == 'put'){
-            $response =  $this->PUT_REQUEST($request,$allheaders);
+            $response =  $this->PUT_REQUEST($allheaders,$request);
         }
 
         if($type == 'delete'){
@@ -178,13 +180,13 @@ class NgeniusClient {
 
     }
 
-    private function POST_REQUEST($body=[],$headers){
+    private function POST_REQUEST($headers, $body=[]){
         try {
             return Http::withHeaders($headers)
                             ->withToken($this->BEARER_TOKEN)
                             ->post($this->API_URL,$body);
 
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             throwNgeniusPackageResponse($exception);
         }catch(ConnectionException $connException){
             throwNgeniusPackageResponse($connException);
@@ -206,7 +208,7 @@ class NgeniusClient {
         }
     }
 
-    private function PUT_REQUEST($body=[],$headers){
+    private function PUT_REQUEST($headers,$body=[]){
         try {
             return Http::withHeaders($headers)
                             ->withToken($this->BEARER_TOKEN)

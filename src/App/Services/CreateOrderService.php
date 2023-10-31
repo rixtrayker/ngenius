@@ -58,7 +58,7 @@ final class CreateOrderService extends NgeniusClient{
                             ->execute('post',$request);
 
             return $response;
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             throwNgeniusPackageResponse($exception);
         }
     }
@@ -131,7 +131,7 @@ final class CreateOrderService extends NgeniusClient{
             
 
             return (array)$data;
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             throwNgeniusPackageResponse($exception);
         }
     }
