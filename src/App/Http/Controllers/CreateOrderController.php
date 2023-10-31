@@ -9,20 +9,20 @@ use Jeybin\Networkintl\Ngenius;
 use Illuminate\Support\Facades\Validator;
 use Jeybin\Networkintl\App\Requests\CreateOrderRequest;
 use Jeybin\Networkintl\App\Services\CreateOrderService;
+use Illuminate\Support\Facades\Log;
 
 final class CreateOrderController{
 
-    private $CreateOrderService;
+    private CreateOrderService $CreateOrderService;
 
     public function __construct(){
         $this->CreateOrderService = new CreateOrderService();
     }
 
-    public function CreateOrder(array $request){
+    public function createOrder(array $request){
         try {
-            $object    = new self;
-            $validated = $object->validated($request);
-           return $object->CreateOrderService->create($validated);
+            $validated = $this->validated($request);
+           return $this->CreateOrderService->create($validated);
         } catch (Exception $exception) {
             throwNgeniusPackageResponse($exception);
         }

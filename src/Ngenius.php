@@ -11,6 +11,8 @@ use Jeybin\Networkintl\App\Http\Controllers\OrderStatusController;
 use Jeybin\Networkintl\App\Http\Controllers\RefundOrderController;
 use Jeybin\Networkintl\App\Http\Controllers\CancelCaptureController;
 use Jeybin\Networkintl\App\Http\Controllers\ReverseAuthorizePaymentController;
+use Jeybin\Networkintl\App\Services\CreateOrderService;
+use Illuminate\Support\Facades\Log;
 
 class Ngenius {
 
@@ -25,15 +27,17 @@ class Ngenius {
      * Uncaught Error: Using $this when not in object context when using 
      *
      * @param [type] $n
-     * @return this
+     * @return Ngenius
      */
-    public static function type($requestType){
+    public static function type($requestType) : Ngenius
+    {
         $object = new self;
         $object->request_for = $requestType;
         return $object;
     }
 
-    public function request($request){
+    public function request($request): Ngenius
+    {
         $this->request = $request;
         return $this;
     }
@@ -41,29 +45,31 @@ class Ngenius {
     public function execute(){
         $requestType  = $this->request_for;
 
-        if($requestType == 'create-order'){
-            return CreateOrderController::CreateOrder($this->request);
-        }
+            if($requestType == 'create-order'){
+                return (new CreateOrderController())->createOrder($this->request);
+            }
 
-        if($requestType == 'order-status'){
-            return OrderStatusController::CheckStatus($this->request);
-        }
+            if($requestType == 'order-status'){
+                return (new OrderStatusController())->CheckStatus($this->request);
+            }
 
-        if($requestType == 'refund-order'){
-            return RefundOrderController::initate($this->request);
-        }
+            if($requestType == 'refund-order'){
+                return RefundOrderController::initate($this->request);
+            }
 
-        if($requestType == 'cancel-order'){
-            return CancelOrderController::cancel($this->request);
-        }
+            if($requestType == 'cancel-order'){
+                return CancelOrderController::cancel($this->request);
+            }
 
-        if($requestType == 'reverse-auth'){
-            return ReverseAuthorizePaymentController::reverse($this->request);
-        }
+            if($requestType == 'reverse-auth'){
+                return ReverseAuthorizePaymentController::reverse($this->request);
+            }
 
-        if($requestType == 'cancel-capture'){
-            return CancelCaptureController::cancel($this->request);
-        }
+            if($requestType == 'cancel-capture'){
+                return CancelCaptureController::cancel($this->request);
+            }
+
+            return 'no request type defined';
 
     }
 
