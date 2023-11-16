@@ -13,7 +13,7 @@ class WebhookController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(VerifyWebhookSignature::class);
+//        $this->middleware(VerifyWebhookSignature::class);
     }
 
     public function __invoke(Request $request){
