@@ -139,5 +139,28 @@ return [
 
     ],
 
+    'recurring' => [
+        'enabled' => env('NGENIUS_RECURRING_ENABLED', false),
+        'max_attempts' => env('NGENIUS_RECURRING_MAX_ATTEMPTS', 3),
+    ],
+    
+    'payment_link' => [
+        'expiry_days' => env('NGENIUS_PAYMENT_LINK_EXPIRY', 30), // 30 days
+        'default_language' => env('NGENIUS_DEFAULT_LANGUAGE', 'en'), // en
+    ],
+    
+    'supported_payment_methods' => [
+        'CARD',
+        'APPLE_PAY',
+        'GOOGLE_PAY'
+    ],
+    
+    'supported_currencies' => [
+        'AED',
+        'SAR',
+        'USD',
+        'EUR',
+        // Add other supported currencies
+    ],
 
 ];

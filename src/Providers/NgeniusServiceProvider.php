@@ -7,6 +7,11 @@ use Jeybin\Networkintl\App\Console\PublishNgeniusWebhooks;
 use Jeybin\Networkintl\App\Console\PublishNgeniusProviders;
 use Jeybin\Networkintl\App\Console\PublishNgeniusMigrationFiles;
 use Illuminate\Support\ServiceProvider;
+use Jeybin\Networkintl\App\Services\PaymentMethodService;
+use Jeybin\Networkintl\App\Services\TokenizationService;
+use Jeybin\Networkintl\App\Services\PaymentLinkService;
+use Jeybin\Networkintl\App\Services\RecurringPaymentService;
+use Jeybin\Networkintl\App\Services\ReportService;
 
 class NgeniusServiceProvider extends ServiceProvider
 {   
@@ -143,6 +148,12 @@ class NgeniusServiceProvider extends ServiceProvider
         $this->app->bind('ngenius',fn($app)=>new NgeniusFacades($app));
 
         $this->app->alias('ngenius', NgeniusFacades::class);
+
+        $this->app->singleton(PaymentMethodService::class);
+        $this->app->singleton(TokenizationService::class);
+        $this->app->singleton(PaymentLinkService::class);
+        $this->app->singleton(RecurringPaymentService::class);
+        $this->app->singleton(ReportService::class);
 
     }
 }
