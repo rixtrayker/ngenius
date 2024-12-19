@@ -1,5 +1,5 @@
 {
-    "name": "jeybin/networkintl",
+    "name": "rixtrayker/ngenius",
     "description": "Laravel wrapper for Network international payment gateway",
     "type": "library",
     "version": "1.2",
@@ -16,8 +16,8 @@
     },
     "authors": [
         {
-            "name": "jeybin",
-            "email": "jeybin@gmail.com"
+            "name": "rixtrayker",
+            "email": "rixtrayker@gmail.com"
         }
     ],
     "extra": {
