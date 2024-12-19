@@ -130,6 +130,22 @@ final class CreateOrderService extends NgeniusClient{
             $data['billingAddress'] = $this->generateBillingAddressBlock($request['billing']);
             
 
+            if (!empty($request['payment_methods'])) {
+                $data['paymentMethods'] = $request['payment_methods']; // Array of allowed payment methods
+            }
+            
+            if (!empty($request['tokens'])) {
+                $data['tokens'] = $request['tokens']; // Array of saved card tokens
+            }
+
+            if (!empty($request['shipping'])) {
+                $data['shippingAddress'] = $this->generateShippingAddressBlock($request['shipping']);
+            }
+
+            if (!empty($request['expiry'])) {
+                $data['expiry'] = $request['expiry']; // ISO 8601 format
+            }
+
             return (array)$data;
         } catch (\Exception $exception) {
             throwNgeniusPackageResponse($exception);
@@ -204,7 +220,13 @@ final class CreateOrderService extends NgeniusClient{
         return $merchantAttr;
     }
 
-
-
-
+    private function generateShippingAddressBlock($shipping) {
+        return [
+            'firstName' => $shipping['first_name'],
+            'lastName' => $shipping['last_name'], 
+            'address1' => $shipping['address'],
+            'city' => $shipping['city'],
+            'countryCode' => $shipping['country']
+        ];
+    }
 }

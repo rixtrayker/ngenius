@@ -45,7 +45,12 @@ final class CreateOrderController{
                             'merchant_defined'   => 'sometimes|array',
                             'language'           => 'sometimes|in:en,ar,fr',
                             'skip_confirmation_page' => 'sometimes|boolean',
-                            'skip3DS'                => 'sometimes|boolean'
+                            'skip3DS'                => 'sometimes|boolean',
+                            'payment_methods' => 'sometimes|array',
+                            'payment_methods.*' => 'string|in:CARD,APPLE_PAY,GOOGLE_PAY',
+                            'tokens' => 'sometimes|array',
+                            'tokens.*' => 'string',
+                            'expiry' => 'sometimes|date_format:c',
                 ];
 
         
