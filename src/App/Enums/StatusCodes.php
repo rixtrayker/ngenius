@@ -10,7 +10,8 @@ namespace Jeybin\Networkintl\App\Enums;
  */
 final class StatusCodes{
     
-    private static function list(){
+    private static function list(): array
+    {
         return [
             '00'=>'Transaction Success',
             '05'=>'Transaction Declined : Do not honor',
@@ -25,19 +26,18 @@ final class StatusCodes{
     }
 
 
-    public static function find($search,$by='code'){
-
-            $statusCodes = self::list();
-            if($by == 'code'){
-                return (!empty($statusCodes[$search])) ? ['code'=>$search,'message'=>$statusCodes[$search]] : null;
-            }else{
-                $responseKey = array_search($search,array_values($statusCodes));
-                if($responseKey !== 0 && $responseKey == false){
-                    return null;
-                }
-                return ['code'=>array_keys($statusCodes)[$responseKey],'message'=>array_values($statusCodes)[$responseKey]];
-            }
-
+    public static function find(string $search, string $by = 'code'): ?array
+    {
+        $statusCodes = self::list();
+        if ($by === 'code') {
+            return isset($statusCodes[$search]) ? ['code' => $search, 'message' => $statusCodes[$search]] : null;
+        }
+        
+        $responseKey = array_search($search, array_values($statusCodes));
+        if ($responseKey === false) {
+            return null;
+        }
+        return ['code' => array_keys($statusCodes)[$responseKey], 'message' => array_values($statusCodes)[$responseKey]];
     }
 
 }

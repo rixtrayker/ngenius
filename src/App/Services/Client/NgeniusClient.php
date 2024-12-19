@@ -17,7 +17,7 @@ class NgeniusClient
      *
      * @var [string]
      */
-    private $BASE_URL;
+    private string $BASE_URL;
 
 
     /**
@@ -25,14 +25,14 @@ class NgeniusClient
      *
      * @var [string]
      */
-    private $API_URL;
+    private string $API_URL;
 
     /**
      * Refernce Id of ngenius
      *
      * @var [string]
      */
-    private $REFERENCE_ID;
+    private string $REFERENCE_ID;
 
 
     /**
@@ -40,7 +40,7 @@ class NgeniusClient
      *
      * @var [string]
      */
-    private $BEARER_TOKEN;
+    private string $BEARER_TOKEN;
 
 
     public function __construct()

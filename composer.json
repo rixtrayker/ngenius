@@ -2,9 +2,11 @@
     "name": "jeybin/networkintl",
     "description": "Laravel wrapper for Network international payment gateway",
     "type": "library",
+    "version": "1.2",
     "require": {
+        "php": "^8.0",
         "guzzlehttp/guzzle": "^7",
-        "psr/log": "^3.0.0"
+        "psr/log": "^3.0"
     },
     "license": "MIT",
     "autoload": {
@@ -27,5 +29,6 @@
                 "Ngenius": "Jeybin\\Networkintl\\Facades\\NgeniusFacades"
             }
         }
-    }
+    },
+    "minimum-stability": "beta"
 }

@@ -21,11 +21,11 @@ class HandlePurchaseSuccess implements ShouldQueue{
 
     use InteractsWithQueue, Queueable, SerializesModels;
     
-    /** @var WebhookModel */
-    public $webhookCall;
 
-    public function __construct(NgeniusGatewayWehooks $webhookCall)
-    {
+
+    public function __construct(
+        private NgeniusGatewayWehooks $webhookCall
+    ) {
         /**
          * Uncomment if the event has specific name
          * add the name in the config file or 
