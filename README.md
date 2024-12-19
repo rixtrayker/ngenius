@@ -1,4 +1,3 @@
-
 # Network International - Ngenius Payment Gateway Wrapper For Laravel
 
 jeybin/networkintl is a wrapper package or in other words a helper package for implementing the Network International (NGENIUS) payment gateway in Laravel Projects.
@@ -10,11 +9,13 @@ jeybin/networkintl is a wrapper package or in other words a helper package for i
 
 ## Installation
 
-Requires PHP v7.0+ to run.
-Install the jeybin/networkintl using the command
+Requires PHP v8.0+ to run.
+Requires Laravel 9.0+ to run.
+
+Install the rixtrayker/ngenius using the command
 
 ```sh
-composer require jeybin/networkintl
+composer require rixtrayker/ngenius
 ```
 After installation publish the config and service providers using
 ```sh
